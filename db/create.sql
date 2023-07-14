@@ -1,4 +1,4 @@
--- CREATE SHEMA
+-- CREATE SCHEMA
 CREATE SCHEMA IF NOT EXISTS read;
 -- Set default schema to 'read'
 SET SEARCH_PATH TO read;
