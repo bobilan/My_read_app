@@ -8,14 +8,11 @@ from src.util import ROOT_DIR
 from src.schema import CreateDataType, FetchByIdDataType
 
 
-# CREATE A CONNECTION
 
 env = environ.Env()
-# set .env from the root dir to be read
 environ.Env.read_env(str(ROOT_DIR / ".env"))
 
 
-# SINGLETON CLASS.
 class Database(object):
     _instance = None
 
@@ -27,7 +24,6 @@ class Database(object):
         return Database._instance._conn
 
     def __init__(self) -> None:
-        # It is bad practice to expose sensitive information in your code.
         self._conn = pg.connect(
             host=env.str("db_host"),
             dbname=env.str("db_name"),
@@ -78,9 +74,7 @@ def fetch_by_id(book_id: int) -> Optional[FetchByIdDataType]:
 
 
 def insert_data(data: CreateDataType) -> Optional[int]:
-    # get the connection
     conn = Database()
-    # define the query
     query = """
          INSERT INTO read.book(
             username,
@@ -92,10 +86,8 @@ def insert_data(data: CreateDataType) -> Optional[int]:
             end_read_date
          ) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id;
    """
-    # create a cursor session
     with conn.cursor() as cursor:
-        # use the cursor session to execute the query
-        cursor.execute(query, tuple(data.values()))  # OrderedDict
+        cursor.execute(query, tuple(data.values()))  
         inserted_id = cursor.fetchone()[0]
         conn.commit()
         return inserted_id
