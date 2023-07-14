@@ -2,3 +2,7 @@
 .idea/
 .pycache/
 .DS_Store
+/myenv/
+src/__pycache__/
+
+
