@@ -85,8 +85,7 @@ class MenuDisplay:
 class InputOption:
     @staticmethod
     def input_option_dm_insert() -> CreateDataType:
-        # Add login feature and extract the username from there.
-        username = "kevin"
+        username = InputOption.get_username()
         print("Please, provide the following details: ")
         book_title: str = input("Book title: ")
         book_desc: str = input("(Optional) Describe the book: ")
@@ -187,6 +186,11 @@ class InputOption:
             data,
         ]
         print(tabulate(table, headers="firstrow", tablefmt="fancy_grid"))
+
+    @staticmethod
+    def get_username() -> str:
+        username = input("Enter your username: ")
+        return username
 
 
 def main():
